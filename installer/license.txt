@@ -1,0 +1,14 @@
+﻿DeFeedback
+Copyright (c) 2026 Arty
+
+ปลั๊กอินตัวนี้สร้างด้วย JUCE 8 ซึ่งอยู่ภายใต้ AGPLv3
+ใช้ส่วนตัวหรือแจกแบบ open source ได้ฟรี
+ถ้าจะนำไปขายหรือแจกแบบปิด source ต้องซื้อไลเซนส์ JUCE ก่อน
+ดูที่ https://juce.com/get-juce
+
+ตัวติดตั้งนี้ไม่ได้เซ็น code signing certificate
+Windows SmartScreen อาจเตือน "Windows protected your PC"
+ให้กด More info แล้วเลือก Run anyway
+
+โปรแกรมนี้แจกตามสภาพที่เป็น ไม่มีการรับประกันใด ๆ
+ผู้ใช้รับความเสี่ยงในการนำไปใช้งานเอง
