@@ -1,0 +1,56 @@
+name: Build VST3 + Standalone + Installer
+
+on: [push, workflow_dispatch]
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache JUCE
+        uses: actions/cache@v4
+        with:
+          path: build/_deps
+          key: juce-8.0.4-${{ runner.os }}
+
+      - name: Configure
+        run: cmake -B build -G "Visual Studio 17 2022" -A x64 -DDEFEEDBACK_BUILD_TESTS=ON
+
+      - name: Run DSP tests
+        run: |
+          cmake --build build --config Release --target DeFeedbackTest
+          build\test\DeFeedbackTest_artefacts\Release\DeFeedbackTest.exe
+
+      - name: Build plugin + standalone
+        run: cmake --build build --config Release --target DeFeedback_VST3 DeFeedback_Standalone
+
+      - name: Check outputs
+        shell: pwsh
+        run: |
+          $vst3 = "build\DeFeedback_artefacts\Release\VST3\DeFeedback.vst3\Contents\x86_64-win\DeFeedback.vst3"
+          $exe  = "build\DeFeedback_artefacts\Release\Standalone\DeFeedback.exe"
+          foreach ($f in @($vst3, $exe)) {
+            if (-not (Test-Path $f)) { throw "missing build output: $f" }
+            Get-Item $f | Select-Object FullName, Length
+          }
+
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress -y
+
+      - name: Build installer
+        run: iscc installer\DeFeedback.iss
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: DeFeedback-Setup
+          path: installer/Output/*.exe
+          if-no-files-found: error
+
+      - name: Upload standalone only
+        uses: actions/upload-artifact@v4
+        with:
+          name: DeFeedback-Standalone-exe
+          path: build/DeFeedback_artefacts/Release/Standalone/DeFeedback.exe
+          if-no-files-found: error
