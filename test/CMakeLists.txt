@@ -12,3 +12,10 @@ if(NOT MSVC)
     COMPILE_OPTIONS "-fsanitize=address;-fno-omit-frame-pointer;-g;-O1")
   target_link_options(DeFeedbackTest PRIVATE -fsanitize=address)
 endif()
+
+juce_add_console_app(DeFeedbackBench PRODUCT_NAME "DeFeedbackBench")
+target_sources(DeFeedbackBench PRIVATE bench.cpp)
+target_compile_features(DeFeedbackBench PRIVATE cxx_std_17)
+target_compile_definitions(DeFeedbackBench PUBLIC
+  JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_STANDALONE_APPLICATION=1)
+target_link_libraries(DeFeedbackBench PRIVATE juce::juce_audio_utils juce::juce_dsp)

@@ -3,7 +3,7 @@
 ; ผลลัพธ์: installer\Output\DeFeedback-Setup-<version>.exe
 
 #define MyAppName      "DeFeedback"
-#define MyAppVersion   "0.3.0"
+#define MyAppVersion   "0.5.0"
 #define MyAppPublisher "Arty"
 #define MyBundle       "DeFeedback.vst3"
 #define MyExe          "DeFeedback.exe"

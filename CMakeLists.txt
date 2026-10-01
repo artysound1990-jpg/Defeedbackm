@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(DeFeedback VERSION 0.3.1)
+project(DeFeedback VERSION 0.5.0)
 
 # ลิงก์ MSVC runtime แบบ static เพื่อให้ .exe รันได้ทุกเครื่อง
 # ไม่งั้นเครื่องที่ไม่มี Visual C++ Redistributable จะดับเบิลคลิกแล้วเงียบ ไม่มีอะไรขึ้น
